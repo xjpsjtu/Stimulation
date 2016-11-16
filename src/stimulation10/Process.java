@@ -1,6 +1,6 @@
-package stimulation9;
+package stimulation10;
 //Process.java  
-//改变lambda，观察value和选中人数的的变化
+//固定预算，改变总人数，看被选中的人数比例
 import stimulation4.ArrivedP;
 import stimulation4.Parti;
 import stimulation4.Pset;
@@ -142,16 +142,18 @@ public class Process {
 	
 	public static void main(String[] args) throws Exception{
 		// TODO 自动生成的方法存根
-		PrintWriter out = new PrintWriter("Lambda.txt");
-//		PrintWriter out = new PrintWriter("NumchangeRatio.txt");
+//		PrintWriter out = new PrintWriter("LambdaChangeValue.txt");
+		PrintWriter out = new PrintWriter("BudgetchangeRatio.txt");
 		double x = 0.01;
-		for(int j = 1; j < 100; j++){
+		for(int B = 6000; B <= 15000; B+=1000){
 			double value = 0;
 			double optValue = 0;
 			double ranValue = 0;
 			int SNum = 0;
-			for(int round = 1; round <= 200; round++){
-				Process pro = new Process(10000, 50, 2, 1, 200, 4, 0.0015, 0.1, 0.9);
+				
+				for(int round = 1; round <= 200; round++){
+					Process pro = new Process(B, 50, 2, 1, 400, 4, 0.0015, 0.1, 0.9);
+					int j=1;
 				pro.start();
 				//pro.showInfo();
 //				optValue += handle(pro);
@@ -202,9 +204,11 @@ public class Process {
 			}
 			value = value/200;
 			SNum /= 200;
+			double ratio = (double)SNum/400;
 //			optValue = optValue/200;
 //			ranValue /= 200;
-			out.println(j+"     "+value);
+			System.out.println(B);
+			out.println(B+"     "+ratio);
 		}
 		out.close();
 	}
