@@ -143,16 +143,17 @@ public class Process {
 	public static void main(String[] args) throws Exception{
 		// TODO 自动生成的方法存根
 //		PrintWriter out = new PrintWriter("LambdaChangeValue.txt");
-		PrintWriter out = new PrintWriter("BudgetchangeRatio.txt");
+		PrintWriter out = new PrintWriter("AgentchangeUti.txt");
 		double x = 0.01;
 		for(int B = 6000; B <= 15000; B+=1000){
+		for(int n = 200; n <= 800; n+=20){
 			double value = 0;
 			double optValue = 0;
 			double ranValue = 0;
 			int SNum = 0;
-				
+			int BSum = 0;
 				for(int round = 1; round <= 200; round++){
-					Process pro = new Process(B, 50, 2, 1, 400, 4, 0.0015, 0.1, 0.9);
+					Process pro = new Process(B, 50, 2, 1, n, 4, 0.0015, 0.1, 0.9);
 					int j=1;
 				pro.start();
 				//pro.showInfo();
@@ -176,6 +177,7 @@ public class Process {
 						if (p.value * disc(pro.beta, t) / p.cost >= pro.rho
 								&& p.value * disc(pro.beta, t) / pro.rho + pro.S.totalPay() <= budget) {
 							p.pay = p.value * disc(pro.beta, t) / pro.rho;
+							BSum += p.pay;
 							pro.Sample.addP(p);
 							pro.S.addP(p);
 							p.select = true;
@@ -204,12 +206,14 @@ public class Process {
 			}
 			value = value/200;
 			SNum /= 200;
-			double ratio = (double)SNum/400;
+			BSum /= 200;
+			double ratio = (double)BSum/B;
 //			optValue = optValue/200;
 //			ranValue /= 200;
-			System.out.println(B);
-			out.println(B+"     "+ratio);
+			System.out.println(n);
+			out.println(B + "		" +n+"		"+ratio);
 		}
+	}
 		out.close();
 	}
 
